@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Interactions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -14,20 +13,18 @@ use Saloon\Http\Request;
  */
 class InteractionsRemoveRestrictionsForOrg extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/interaction-limits";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/interaction-limits";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected string $org,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $org,
+    ) {
+    }
 }

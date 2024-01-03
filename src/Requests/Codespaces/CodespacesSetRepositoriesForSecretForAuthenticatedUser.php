@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Codespaces;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -21,20 +20,18 @@ use Saloon\Http\Request;
  */
 class CodespacesSetRepositoriesForSecretForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/codespaces/secrets/{$this->secretName}/repositories";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/codespaces/secrets/{$this->secretName}/repositories";
-	}
-
-
-	/**
-	 * @param string $secretName The name of the secret.
-	 */
-	public function __construct(
-		protected string $secretName,
-	) {
-	}
+    /**
+     * @param  string  $secretName The name of the secret.
+     */
+    public function __construct(
+        protected string $secretName,
+    ) {
+    }
 }

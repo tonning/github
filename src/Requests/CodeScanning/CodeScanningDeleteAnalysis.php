@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\CodeScanning;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -109,32 +108,29 @@ use Saloon\Http\Request;
  */
 class CodeScanningDeleteAnalysis extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/code-scanning/analyses/{$this->analysisId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/code-scanning/analyses/{$this->analysisId}";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  int  $analysisId The ID of the analysis, as returned from the `GET /repos/{owner}/{repo}/code-scanning/analyses` operation.
+     * @param  null|string  $confirmDelete Allow deletion if the specified analysis is the last in a set. If you attempt to delete the final analysis in a set without setting this parameter to `true`, you'll get a 400 response with the message: `Analysis is last of its type and deletion may result in the loss of historical alert data. Please specify confirm_delete.`
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $analysisId,
+        protected ?string $confirmDelete = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $analysisId The ID of the analysis, as returned from the `GET /repos/{owner}/{repo}/code-scanning/analyses` operation.
-	 * @param null|string $confirmDelete Allow deletion if the specified analysis is the last in a set. If you attempt to delete the final analysis in a set without setting this parameter to `true`, you'll get a 400 response with the message: `Analysis is last of its type and deletion may result in the loss of historical alert data. Please specify confirm_delete.`
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $analysisId,
-		protected ?string $confirmDelete = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['confirm_delete' => $this->confirmDelete]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['confirm_delete' => $this->confirmDelete]);
+    }
 }

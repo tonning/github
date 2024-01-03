@@ -9,17 +9,13 @@ use Tonning\Github\Resource;
 
 class Gitignore extends Resource
 {
-	public function gitignoreGetAllTemplates(): Response
-	{
-		return $this->connector->send(new GitignoreGetAllTemplates());
-	}
+    public function gitignoreGetAllTemplates(): Response
+    {
+        return $this->connector->send(new GitignoreGetAllTemplates());
+    }
 
-
-	/**
-	 * @param string $name
-	 */
-	public function gitignoreGetTemplate(string $name): Response
-	{
-		return $this->connector->send(new GitignoreGetTemplate($name));
-	}
+    public function gitignoreGetTemplate(string $name): Response
+    {
+        return $this->connector->send(new GitignoreGetTemplate($name));
+    }
 }

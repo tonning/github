@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Reactions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,26 +19,24 @@ use Saloon\Http\Request;
  */
 class ReactionsDeleteForTeamDiscussion extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/teams/{$this->teamSlug}/discussions/{$this->discussionNumber}/reactions/{$this->reactionId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/teams/{$this->teamSlug}/discussions/{$this->discussionNumber}/reactions/{$this->reactionId}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param string $teamSlug The slug of the team name.
-	 * @param int $discussionNumber The number that identifies the discussion.
-	 * @param int $reactionId The unique identifier of the reaction.
-	 */
-	public function __construct(
-		protected string $org,
-		protected string $teamSlug,
-		protected int $discussionNumber,
-		protected int $reactionId,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  string  $teamSlug The slug of the team name.
+     * @param  int  $discussionNumber The number that identifies the discussion.
+     * @param  int  $reactionId The unique identifier of the reaction.
+     */
+    public function __construct(
+        protected string $org,
+        protected string $teamSlug,
+        protected int $discussionNumber,
+        protected int $reactionId,
+    ) {
+    }
 }

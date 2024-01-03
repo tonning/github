@@ -62,218 +62,183 @@ class Github extends Connector
         ];
     }
 
-	public function resolveBaseUrl(): string
-	{
-		return 'https://api.github.com';
-	}
-
-
-	public function actions(): Actions
-	{
-		return new Actions($this);
-	}
-
-
-	public function activity(): Activity
-	{
-		return new Activity($this);
-	}
-
-
-	public function apps(): Apps
-	{
-		return new Apps($this);
-	}
-
-
-	public function billing(): Billing
-	{
-		return new Billing($this);
-	}
-
-
-	public function checks(): Checks
-	{
-		return new Checks($this);
-	}
-
-
-	public function classroom(): Classroom
-	{
-		return new Classroom($this);
-	}
-
-
-	public function codeScanning(): CodeScanning
-	{
-		return new CodeScanning($this);
-	}
-
-
-	public function codesOfConduct(): CodesOfConduct
-	{
-		return new CodesOfConduct($this);
-	}
-
-
-	public function codespaces(): Codespaces
-	{
-		return new Codespaces($this);
-	}
-
-
-	public function copilot(): Copilot
-	{
-		return new Copilot($this);
-	}
-
-
-	public function dependabot(): Dependabot
-	{
-		return new Dependabot($this);
-	}
-
-
-	public function dependencyGraph(): DependencyGraph
-	{
-		return new DependencyGraph($this);
-	}
-
-
-	public function emojis(): Emojis
-	{
-		return new Emojis($this);
-	}
-
-
-	public function gists(): Gists
-	{
-		return new Gists($this);
-	}
-
-
-	public function git(): Git
-	{
-		return new Git($this);
-	}
-
-
-	public function gitignore(): Gitignore
-	{
-		return new Gitignore($this);
-	}
-
-
-	public function interactions(): Interactions
-	{
-		return new Interactions($this);
-	}
-
-
-	public function issues(): Issues
-	{
-		return new Issues($this);
-	}
-
-
-	public function licenses(): Licenses
-	{
-		return new Licenses($this);
-	}
-
-
-	public function markdown(): Markdown
-	{
-		return new Markdown($this);
-	}
-
-
-	public function meta(): Meta
-	{
-		return new Meta($this);
-	}
-
-
-	public function migrations(): Migrations
-	{
-		return new Migrations($this);
-	}
-
-
-	public function oidc(): Oidc
-	{
-		return new Oidc($this);
-	}
-
-
-	public function orgs(): Orgs
-	{
-		return new Orgs($this);
-	}
-
-
-	public function packages(): Packages
-	{
-		return new Packages($this);
-	}
-
-
-	public function projects(): Projects
-	{
-		return new Projects($this);
-	}
-
-
-	public function pulls(): Pulls
-	{
-		return new Pulls($this);
-	}
-
-
-	public function rateLimit(): RateLimit
-	{
-		return new RateLimit($this);
-	}
-
-
-	public function reactions(): Reactions
-	{
-		return new Reactions($this);
-	}
-
-
-	public function repos(): Repos
-	{
-		return new Repos($this);
-	}
-
-
-	public function search(): Search
-	{
-		return new Search($this);
-	}
-
-
-	public function secretScanning(): SecretScanning
-	{
-		return new SecretScanning($this);
-	}
-
-
-	public function securityAdvisories(): SecurityAdvisories
-	{
-		return new SecurityAdvisories($this);
-	}
-
-
-	public function teams(): Teams
-	{
-		return new Teams($this);
-	}
-
-
-	public function users(): Users
-	{
-		return new Users($this);
-	}
+    public function resolveBaseUrl(): string
+    {
+        return 'https://api.github.com';
+    }
+
+    public function actions(): Actions
+    {
+        return new Actions($this);
+    }
+
+    public function activity(): Activity
+    {
+        return new Activity($this);
+    }
+
+    public function apps(): Apps
+    {
+        return new Apps($this);
+    }
+
+    public function billing(): Billing
+    {
+        return new Billing($this);
+    }
+
+    public function checks(): Checks
+    {
+        return new Checks($this);
+    }
+
+    public function classroom(): Classroom
+    {
+        return new Classroom($this);
+    }
+
+    public function codeScanning(): CodeScanning
+    {
+        return new CodeScanning($this);
+    }
+
+    public function codesOfConduct(): CodesOfConduct
+    {
+        return new CodesOfConduct($this);
+    }
+
+    public function codespaces(): Codespaces
+    {
+        return new Codespaces($this);
+    }
+
+    public function copilot(): Copilot
+    {
+        return new Copilot($this);
+    }
+
+    public function dependabot(): Dependabot
+    {
+        return new Dependabot($this);
+    }
+
+    public function dependencyGraph(): DependencyGraph
+    {
+        return new DependencyGraph($this);
+    }
+
+    public function emojis(): Emojis
+    {
+        return new Emojis($this);
+    }
+
+    public function gists(): Gists
+    {
+        return new Gists($this);
+    }
+
+    public function git(): Git
+    {
+        return new Git($this);
+    }
+
+    public function gitignore(): Gitignore
+    {
+        return new Gitignore($this);
+    }
+
+    public function interactions(): Interactions
+    {
+        return new Interactions($this);
+    }
+
+    public function issues(): Issues
+    {
+        return new Issues($this);
+    }
+
+    public function licenses(): Licenses
+    {
+        return new Licenses($this);
+    }
+
+    public function markdown(): Markdown
+    {
+        return new Markdown($this);
+    }
+
+    public function meta(): Meta
+    {
+        return new Meta($this);
+    }
+
+    public function migrations(): Migrations
+    {
+        return new Migrations($this);
+    }
+
+    public function oidc(): Oidc
+    {
+        return new Oidc($this);
+    }
+
+    public function orgs(): Orgs
+    {
+        return new Orgs($this);
+    }
+
+    public function packages(): Packages
+    {
+        return new Packages($this);
+    }
+
+    public function projects(): Projects
+    {
+        return new Projects($this);
+    }
+
+    public function pulls(): Pulls
+    {
+        return new Pulls($this);
+    }
+
+    public function rateLimit(): RateLimit
+    {
+        return new RateLimit($this);
+    }
+
+    public function reactions(): Reactions
+    {
+        return new Reactions($this);
+    }
+
+    public function repos(): Repos
+    {
+        return new Repos($this);
+    }
+
+    public function search(): Search
+    {
+        return new Search($this);
+    }
+
+    public function secretScanning(): SecretScanning
+    {
+        return new SecretScanning($this);
+    }
+
+    public function securityAdvisories(): SecurityAdvisories
+    {
+        return new SecurityAdvisories($this);
+    }
+
+    public function teams(): Teams
+    {
+        return new Teams($this);
+    }
+
+    public function users(): Users
+    {
+        return new Users($this);
+    }
 }

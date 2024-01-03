@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Licenses;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -14,28 +13,24 @@ use Saloon\Http\Request;
  */
 class LicensesGetAllCommonlyUsed extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/licenses';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/licenses";
-	}
+    /**
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected ?bool $featured = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|bool $featured
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected ?bool $featured = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['featured' => $this->featured, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['featured' => $this->featured, 'page' => $this->page]);
+    }
 }

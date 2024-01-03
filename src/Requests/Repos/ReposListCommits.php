@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -61,50 +60,47 @@ use Saloon\Http\Request;
  */
 class ReposListCommits extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/commits";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/commits";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  null|string  $sha SHA or branch to start listing commits from. Default: the repository’s default branch (usually `main`).
+     * @param  null|string  $path Only commits containing this file path will be returned.
+     * @param  null|string  $author GitHub username or email address to use to filter by commit author.
+     * @param  null|string  $committer GitHub username or email address to use to filter by commit committer.
+     * @param  null|string  $since Only show results that were last updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+     * @param  null|string  $until Only commits before this date will be returned. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected ?string $sha = null,
+        protected ?string $path = null,
+        protected ?string $author = null,
+        protected ?string $committer = null,
+        protected ?string $since = null,
+        protected ?string $until = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param null|string $sha SHA or branch to start listing commits from. Default: the repository’s default branch (usually `main`).
-	 * @param null|string $path Only commits containing this file path will be returned.
-	 * @param null|string $author GitHub username or email address to use to filter by commit author.
-	 * @param null|string $committer GitHub username or email address to use to filter by commit committer.
-	 * @param null|string $since Only show results that were last updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
-	 * @param null|string $until Only commits before this date will be returned. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected ?string $sha = null,
-		protected ?string $path = null,
-		protected ?string $author = null,
-		protected ?string $committer = null,
-		protected ?string $since = null,
-		protected ?string $until = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter([
-			'sha' => $this->sha,
-			'path' => $this->path,
-			'author' => $this->author,
-			'committer' => $this->committer,
-			'since' => $this->since,
-			'until' => $this->until,
-			'page' => $this->page,
-		]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter([
+            'sha' => $this->sha,
+            'path' => $this->path,
+            'author' => $this->author,
+            'committer' => $this->committer,
+            'since' => $this->since,
+            'until' => $this->until,
+            'page' => $this->page,
+        ]);
+    }
 }

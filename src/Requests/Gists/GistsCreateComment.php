@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Gists;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,22 +12,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class GistsCreateComment extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/gists/{$this->gistId}/comments";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/gists/{$this->gistId}/comments";
-	}
-
-
-	/**
-	 * @param string $gistId The unique identifier of the gist.
-	 */
-	public function __construct(
-		protected string $gistId,
-	) {
-	}
+    /**
+     * @param  string  $gistId The unique identifier of the gist.
+     */
+    public function __construct(
+        protected string $gistId,
+    ) {
+    }
 }

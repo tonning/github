@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Users;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,20 +14,18 @@ use Saloon\Http\Request;
  */
 class UsersDeleteGpgKeyForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/gpg_keys/{$this->gpgKeyId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/gpg_keys/{$this->gpgKeyId}";
-	}
-
-
-	/**
-	 * @param int $gpgKeyId The unique identifier of the GPG key.
-	 */
-	public function __construct(
-		protected int $gpgKeyId,
-	) {
-	}
+    /**
+     * @param  int  $gpgKeyId The unique identifier of the GPG key.
+     */
+    public function __construct(
+        protected int $gpgKeyId,
+    ) {
+    }
 }

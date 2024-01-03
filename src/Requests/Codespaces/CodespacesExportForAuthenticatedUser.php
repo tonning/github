@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Codespaces;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -25,22 +24,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class CodespacesExportForAuthenticatedUser extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/codespaces/{$this->codespaceName}/exports";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/codespaces/{$this->codespaceName}/exports";
-	}
-
-
-	/**
-	 * @param string $codespaceName The name of the codespace.
-	 */
-	public function __construct(
-		protected string $codespaceName,
-	) {
-	}
+    /**
+     * @param  string  $codespaceName The name of the codespace.
+     */
+    public function __construct(
+        protected string $codespaceName,
+    ) {
+    }
 }

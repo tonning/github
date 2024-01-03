@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -18,30 +17,26 @@ use Saloon\Http\Request;
  */
 class AppsListInstallations extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/app/installations';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/app/installations";
-	}
+    /**
+     * @param  null|int  $page Page number of the results to fetch.
+     * @param  null|string  $since Only show results that were last updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+     */
+    public function __construct(
+        protected ?int $page = null,
+        protected ?string $since = null,
+        protected ?string $outdated = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|int $page Page number of the results to fetch.
-	 * @param null|string $since Only show results that were last updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
-	 * @param null|string $outdated
-	 */
-	public function __construct(
-		protected ?int $page = null,
-		protected ?string $since = null,
-		protected ?string $outdated = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['page' => $this->page, 'since' => $this->since, 'outdated' => $this->outdated]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['page' => $this->page, 'since' => $this->since, 'outdated' => $this->outdated]);
+    }
 }

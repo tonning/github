@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Migrations;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -22,26 +21,23 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class MigrationsMapCommitAuthor extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::PATCH;
+    protected Method $method = Method::PATCH;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/import/authors/{$this->authorId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/import/authors/{$this->authorId}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $authorId
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $authorId,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $authorId,
+    ) {
+    }
 }

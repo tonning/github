@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Activity;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -18,16 +17,14 @@ use Saloon\Http\Request;
  */
 class ActivityMarkNotificationsAsRead extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return '/notifications';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/notifications";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

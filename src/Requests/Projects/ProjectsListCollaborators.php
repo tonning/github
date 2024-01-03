@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Projects;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -17,30 +16,27 @@ use Saloon\Http\Request;
  */
 class ProjectsListCollaborators extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/projects/{$this->projectId}/collaborators";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/projects/{$this->projectId}/collaborators";
-	}
+    /**
+     * @param  int  $projectId The unique identifier of the project.
+     * @param  null|string  $affiliation Filters the collaborators by their affiliation. `outside` means outside collaborators of a project that are not a member of the project's organization. `direct` means collaborators with permissions to a project, regardless of organization membership status. `all` means all collaborators the authenticated user can see.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected int $projectId,
+        protected ?string $affiliation = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param int $projectId The unique identifier of the project.
-	 * @param null|string $affiliation Filters the collaborators by their affiliation. `outside` means outside collaborators of a project that are not a member of the project's organization. `direct` means collaborators with permissions to a project, regardless of organization membership status. `all` means all collaborators the authenticated user can see.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected int $projectId,
-		protected ?string $affiliation = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['affiliation' => $this->affiliation, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['affiliation' => $this->affiliation, 'page' => $this->page]);
+    }
 }

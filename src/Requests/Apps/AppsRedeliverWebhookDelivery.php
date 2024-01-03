@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -19,22 +18,17 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class AppsRedeliverWebhookDelivery extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/app/hook/deliveries/{$this->deliveryId}/attempts";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/app/hook/deliveries/{$this->deliveryId}/attempts";
-	}
-
-
-	/**
-	 * @param int $deliveryId
-	 */
-	public function __construct(
-		protected int $deliveryId,
-	) {
-	}
+    public function __construct(
+        protected int $deliveryId,
+    ) {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -25,28 +24,25 @@ use Saloon\Http\Request;
  */
 class AppsListInstallationReposForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/installations/{$this->installationId}/repositories";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/installations/{$this->installationId}/repositories";
-	}
+    /**
+     * @param  int  $installationId The unique identifier of the installation.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected int $installationId,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param int $installationId The unique identifier of the installation.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected int $installationId,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['page' => $this->page]);
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -22,20 +21,15 @@ use Saloon\Http\Request;
  */
 class AppsGetBySlug extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/apps/{$this->appSlug}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/apps/{$this->appSlug}";
-	}
-
-
-	/**
-	 * @param string $appSlug
-	 */
-	public function __construct(
-		protected string $appSlug,
-	) {
-	}
+    public function __construct(
+        protected string $appSlug,
+    ) {
+    }
 }

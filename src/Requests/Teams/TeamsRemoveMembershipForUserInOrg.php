@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Teams;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -33,24 +32,22 @@ use Saloon\Http\Request;
  */
 class TeamsRemoveMembershipForUserInOrg extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/teams/{$this->teamSlug}/memberships/{$this->username}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/teams/{$this->teamSlug}/memberships/{$this->username}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param string $teamSlug The slug of the team name.
-	 * @param string $username The handle for the GitHub user account.
-	 */
-	public function __construct(
-		protected string $org,
-		protected string $teamSlug,
-		protected string $username,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  string  $teamSlug The slug of the team name.
+     * @param  string  $username The handle for the GitHub user account.
+     */
+    public function __construct(
+        protected string $org,
+        protected string $teamSlug,
+        protected string $username,
+    ) {
+    }
 }

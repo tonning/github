@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Migrations;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -24,28 +23,24 @@ use Saloon\Http\Request;
  */
 class MigrationsGetStatusForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/migrations/{$this->migrationId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/migrations/{$this->migrationId}";
-	}
+    /**
+     * @param  int  $migrationId The unique identifier of the migration.
+     */
+    public function __construct(
+        protected int $migrationId,
+        protected ?array $exclude = null,
+    ) {
+    }
 
-
-	/**
-	 * @param int $migrationId The unique identifier of the migration.
-	 * @param null|array $exclude
-	 */
-	public function __construct(
-		protected int $migrationId,
-		protected ?array $exclude = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['exclude' => $this->exclude]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['exclude' => $this->exclude]);
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Migrations;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -17,30 +16,27 @@ use Saloon\Http\Request;
  */
 class MigrationsListForOrg extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/migrations";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/migrations";
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  null|int  $page Page number of the results to fetch.
+     * @param  null|array  $exclude Exclude attributes from the API response to improve performance
+     */
+    public function __construct(
+        protected string $org,
+        protected ?int $page = null,
+        protected ?array $exclude = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param null|int $page Page number of the results to fetch.
-	 * @param null|array $exclude Exclude attributes from the API response to improve performance
-	 */
-	public function __construct(
-		protected string $org,
-		protected ?int $page = null,
-		protected ?array $exclude = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['page' => $this->page, 'exclude' => $this->exclude]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['page' => $this->page, 'exclude' => $this->exclude]);
+    }
 }

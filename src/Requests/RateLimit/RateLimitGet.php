@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\RateLimit;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -55,16 +54,14 @@ use Saloon\Http\Request;
  */
 class RateLimitGet extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/rate_limit';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/rate_limit";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

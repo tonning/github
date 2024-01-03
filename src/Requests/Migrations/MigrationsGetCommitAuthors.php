@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Migrations;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -26,30 +25,27 @@ use Saloon\Http\Request;
  */
 class MigrationsGetCommitAuthors extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/import/authors";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/import/authors";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  null|int  $since A user ID. Only return users with an ID greater than this ID.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected ?int $since = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param null|int $since A user ID. Only return users with an ID greater than this ID.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected ?int $since = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['since' => $this->since]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['since' => $this->since]);
+    }
 }

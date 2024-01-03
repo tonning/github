@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,24 +19,22 @@ use Saloon\Http\Request;
  */
 class ActionsGetRepoVariable extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/actions/variables/{$this->name}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/actions/variables/{$this->name}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $name The name of the variable.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $name,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  string  $name The name of the variable.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $name,
+    ) {
+    }
 }

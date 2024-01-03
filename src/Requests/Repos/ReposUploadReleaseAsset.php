@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -56,36 +55,31 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class ReposUploadReleaseAsset extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/releases/{$this->releaseId}/assets";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/releases/{$this->releaseId}/assets";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  int  $releaseId The unique identifier of the release.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $releaseId,
+        protected string $name,
+        protected ?string $label = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $releaseId The unique identifier of the release.
-	 * @param string $name
-	 * @param null|string $label
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $releaseId,
-		protected string $name,
-		protected ?string $label = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['name' => $this->name, 'label' => $this->label]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['name' => $this->name, 'label' => $this->label]);
+    }
 }

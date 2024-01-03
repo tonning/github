@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Activity;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -35,16 +34,14 @@ use Saloon\Http\Request;
  */
 class ActivityGetFeeds extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/feeds';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/feeds";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

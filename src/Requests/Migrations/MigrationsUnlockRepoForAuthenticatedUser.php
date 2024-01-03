@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Migrations;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -17,22 +16,20 @@ use Saloon\Http\Request;
  */
 class MigrationsUnlockRepoForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/migrations/{$this->migrationId}/repos/{$this->repoName}/lock";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/migrations/{$this->migrationId}/repos/{$this->repoName}/lock";
-	}
-
-
-	/**
-	 * @param int $migrationId The unique identifier of the migration.
-	 * @param string $repoName repo_name parameter
-	 */
-	public function __construct(
-		protected int $migrationId,
-		protected string $repoName,
-	) {
-	}
+    /**
+     * @param  int  $migrationId The unique identifier of the migration.
+     * @param  string  $repoName repo_name parameter
+     */
+    public function __construct(
+        protected int $migrationId,
+        protected string $repoName,
+    ) {
+    }
 }

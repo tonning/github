@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,22 +19,20 @@ use Saloon\Http\Request;
  */
 class ActionsEnableSelectedRepositoryGithubActionsOrganization extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/actions/permissions/repositories/{$this->repositoryId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/actions/permissions/repositories/{$this->repositoryId}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param int $repositoryId The unique identifier of the repository.
-	 */
-	public function __construct(
-		protected string $org,
-		protected int $repositoryId,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  int  $repositoryId The unique identifier of the repository.
+     */
+    public function __construct(
+        protected string $org,
+        protected int $repositoryId,
+    ) {
+    }
 }

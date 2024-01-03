@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -21,26 +20,23 @@ use Saloon\Http\Request;
  */
 class ReposListPublic extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/repositories';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repositories";
-	}
+    /**
+     * @param  null|int  $since A repository ID. Only return repositories with an ID greater than this ID.
+     */
+    public function __construct(
+        protected ?int $since = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|int $since A repository ID. Only return repositories with an ID greater than this ID.
-	 */
-	public function __construct(
-		protected ?int $since = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['since' => $this->since]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['since' => $this->since]);
+    }
 }

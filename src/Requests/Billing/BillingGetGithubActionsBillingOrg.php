@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Billing;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -23,20 +22,18 @@ use Saloon\Http\Request;
  */
 class BillingGetGithubActionsBillingOrg extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/settings/billing/actions";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/settings/billing/actions";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected string $org,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $org,
+    ) {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Projects;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,22 +12,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class ProjectsMoveColumn extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/projects/columns/{$this->columnId}/moves";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/projects/columns/{$this->columnId}/moves";
-	}
-
-
-	/**
-	 * @param int $columnId The unique identifier of the column.
-	 */
-	public function __construct(
-		protected int $columnId,
-	) {
-	}
+    /**
+     * @param  int  $columnId The unique identifier of the column.
+     */
+    public function __construct(
+        protected int $columnId,
+    ) {
+    }
 }

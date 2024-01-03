@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Activity;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -18,30 +17,27 @@ use Saloon\Http\Request;
  */
 class ActivityListReposStarredByAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/user/starred';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/starred";
-	}
+    /**
+     * @param  null|string  $sort The property to sort the results by. `created` means when the repository was starred. `updated` means when the repository was last pushed to.
+     * @param  null|string  $direction The direction to sort the results by.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected ?string $sort = null,
+        protected ?string $direction = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|string $sort The property to sort the results by. `created` means when the repository was starred. `updated` means when the repository was last pushed to.
-	 * @param null|string $direction The direction to sort the results by.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected ?string $sort = null,
-		protected ?string $direction = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['sort' => $this->sort, 'direction' => $this->direction, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['sort' => $this->sort, 'direction' => $this->direction, 'page' => $this->page]);
+    }
 }

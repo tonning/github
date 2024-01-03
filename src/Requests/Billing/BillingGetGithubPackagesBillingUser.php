@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Billing;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,20 +19,18 @@ use Saloon\Http\Request;
  */
 class BillingGetGithubPackagesBillingUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/users/{$this->username}/settings/billing/packages";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/users/{$this->username}/settings/billing/packages";
-	}
-
-
-	/**
-	 * @param string $username The handle for the GitHub user account.
-	 */
-	public function __construct(
-		protected string $username,
-	) {
-	}
+    /**
+     * @param  string  $username The handle for the GitHub user account.
+     */
+    public function __construct(
+        protected string $username,
+    ) {
+    }
 }

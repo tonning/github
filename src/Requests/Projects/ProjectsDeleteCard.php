@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Projects;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,20 +12,18 @@ use Saloon\Http\Request;
  */
 class ProjectsDeleteCard extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/projects/columns/cards/{$this->cardId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/projects/columns/cards/{$this->cardId}";
-	}
-
-
-	/**
-	 * @param int $cardId The unique identifier of the card.
-	 */
-	public function __construct(
-		protected int $cardId,
-	) {
-	}
+    /**
+     * @param  int  $cardId The unique identifier of the card.
+     */
+    public function __construct(
+        protected int $cardId,
+    ) {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Interactions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,16 +14,14 @@ use Saloon\Http\Request;
  */
 class InteractionsSetRestrictionsForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return '/user/interaction-limits';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/interaction-limits";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

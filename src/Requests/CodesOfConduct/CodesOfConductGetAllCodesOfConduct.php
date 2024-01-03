@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\CodesOfConduct;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,16 +12,14 @@ use Saloon\Http\Request;
  */
 class CodesOfConductGetAllCodesOfConduct extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/codes_of_conduct';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/codes_of_conduct";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Users;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -26,30 +25,27 @@ use Saloon\Http\Request;
  */
 class UsersGetContextForUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/users/{$this->username}/hovercard";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/users/{$this->username}/hovercard";
-	}
+    /**
+     * @param  string  $username The handle for the GitHub user account.
+     * @param  null|string  $subjectType Identifies which additional information you'd like to receive about the person's hovercard. Can be `organization`, `repository`, `issue`, `pull_request`. **Required** when using `subject_id`.
+     * @param  null|string  $subjectId Uses the ID for the `subject_type` you specified. **Required** when using `subject_type`.
+     */
+    public function __construct(
+        protected string $username,
+        protected ?string $subjectType = null,
+        protected ?string $subjectId = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $username The handle for the GitHub user account.
-	 * @param null|string $subjectType Identifies which additional information you'd like to receive about the person's hovercard. Can be `organization`, `repository`, `issue`, `pull_request`. **Required** when using `subject_id`.
-	 * @param null|string $subjectId Uses the ID for the `subject_type` you specified. **Required** when using `subject_type`.
-	 */
-	public function __construct(
-		protected string $username,
-		protected ?string $subjectType = null,
-		protected ?string $subjectId = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['subject_type' => $this->subjectType, 'subject_id' => $this->subjectId]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['subject_type' => $this->subjectType, 'subject_id' => $this->subjectId]);
+    }
 }

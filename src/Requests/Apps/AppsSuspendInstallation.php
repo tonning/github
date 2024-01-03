@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -19,20 +18,18 @@ use Saloon\Http\Request;
  */
 class AppsSuspendInstallation extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/app/installations/{$this->installationId}/suspended";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/app/installations/{$this->installationId}/suspended";
-	}
-
-
-	/**
-	 * @param int $installationId The unique identifier of the installation.
-	 */
-	public function __construct(
-		protected int $installationId,
-	) {
-	}
+    /**
+     * @param  int  $installationId The unique identifier of the installation.
+     */
+    public function __construct(
+        protected int $installationId,
+    ) {
+    }
 }

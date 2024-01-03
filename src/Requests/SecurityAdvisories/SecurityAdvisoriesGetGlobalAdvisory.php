@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\SecurityAdvisories;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,20 +12,18 @@ use Saloon\Http\Request;
  */
 class SecurityAdvisoriesGetGlobalAdvisory extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/advisories/{$this->ghsaId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/advisories/{$this->ghsaId}";
-	}
-
-
-	/**
-	 * @param string $ghsaId The GHSA (GitHub Security Advisory) identifier of the advisory.
-	 */
-	public function __construct(
-		protected string $ghsaId,
-	) {
-	}
+    /**
+     * @param  string  $ghsaId The GHSA (GitHub Security Advisory) identifier of the advisory.
+     */
+    public function __construct(
+        protected string $ghsaId,
+    ) {
+    }
 }

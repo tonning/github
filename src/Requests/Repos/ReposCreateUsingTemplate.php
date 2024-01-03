@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -30,24 +29,22 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class ReposCreateUsingTemplate extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->templateOwner}/{$this->templateRepo}/generate";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->templateOwner}/{$this->templateRepo}/generate";
-	}
-
-
-	/**
-	 * @param string $templateOwner The account owner of the template repository. The name is not case-sensitive.
-	 * @param string $templateRepo The name of the template repository without the `.git` extension. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected string $templateOwner,
-		protected string $templateRepo,
-	) {
-	}
+    /**
+     * @param  string  $templateOwner The account owner of the template repository. The name is not case-sensitive.
+     * @param  string  $templateRepo The name of the template repository without the `.git` extension. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $templateOwner,
+        protected string $templateRepo,
+    ) {
+    }
 }

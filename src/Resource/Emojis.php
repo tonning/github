@@ -8,8 +8,8 @@ use Tonning\Github\Resource;
 
 class Emojis extends Resource
 {
-	public function emojisGet(): Response
-	{
-		return $this->connector->send(new EmojisGet());
-	}
+    public function emojisGet(): Response
+    {
+        return $this->connector->send(new EmojisGet());
+    }
 }

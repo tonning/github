@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -22,32 +21,29 @@ use Saloon\Http\Request;
  */
 class AppsListAccountsForPlan extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/marketplace_listing/plans/{$this->planId}/accounts";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/marketplace_listing/plans/{$this->planId}/accounts";
-	}
+    /**
+     * @param  int  $planId The unique identifier of the plan.
+     * @param  null|string  $sort The property to sort the results by.
+     * @param  null|string  $direction To return the oldest accounts first, set to `asc`. Ignored without the `sort` parameter.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected int $planId,
+        protected ?string $sort = null,
+        protected ?string $direction = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param int $planId The unique identifier of the plan.
-	 * @param null|string $sort The property to sort the results by.
-	 * @param null|string $direction To return the oldest accounts first, set to `asc`. Ignored without the `sort` parameter.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected int $planId,
-		protected ?string $sort = null,
-		protected ?string $direction = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['sort' => $this->sort, 'direction' => $this->direction, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['sort' => $this->sort, 'direction' => $this->direction, 'page' => $this->page]);
+    }
 }

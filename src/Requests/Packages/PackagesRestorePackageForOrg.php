@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Packages;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -37,34 +36,31 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class PackagesRestorePackageForOrg extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/packages/{$this->packageType}/{$this->packageName}/restore";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/packages/{$this->packageType}/{$this->packageName}/restore";
-	}
+    /**
+     * @param  string  $packageType The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry.
+     * @param  string  $packageName The name of the package.
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  null|string  $token package token
+     */
+    public function __construct(
+        protected string $packageType,
+        protected string $packageName,
+        protected string $org,
+        protected ?string $token = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $packageType The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry.
-	 * @param string $packageName The name of the package.
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param null|string $token package token
-	 */
-	public function __construct(
-		protected string $packageType,
-		protected string $packageName,
-		protected string $org,
-		protected ?string $token = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['token' => $this->token]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['token' => $this->token]);
+    }
 }

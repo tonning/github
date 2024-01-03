@@ -8,8 +8,8 @@ use Tonning\Github\Resource;
 
 class RateLimit extends Resource
 {
-	public function rateLimitGet(): Response
-	{
-		return $this->connector->send(new RateLimitGet());
-	}
+    public function rateLimitGet(): Response
+    {
+        return $this->connector->send(new RateLimitGet());
+    }
 }

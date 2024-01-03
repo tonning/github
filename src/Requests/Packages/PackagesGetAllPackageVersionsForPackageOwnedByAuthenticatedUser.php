@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Packages;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,32 +19,29 @@ use Saloon\Http\Request;
  */
 class PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/packages/{$this->packageType}/{$this->packageName}/versions";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/packages/{$this->packageType}/{$this->packageName}/versions";
-	}
+    /**
+     * @param  string  $packageType The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry.
+     * @param  string  $packageName The name of the package.
+     * @param  null|int  $page Page number of the results to fetch.
+     * @param  null|string  $state The state of the package, either active or deleted.
+     */
+    public function __construct(
+        protected string $packageType,
+        protected string $packageName,
+        protected ?int $page = null,
+        protected ?string $state = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $packageType The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry.
-	 * @param string $packageName The name of the package.
-	 * @param null|int $page Page number of the results to fetch.
-	 * @param null|string $state The state of the package, either active or deleted.
-	 */
-	public function __construct(
-		protected string $packageType,
-		protected string $packageName,
-		protected ?int $page = null,
-		protected ?string $state = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['page' => $this->page, 'state' => $this->state]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['page' => $this->page, 'state' => $this->state]);
+    }
 }

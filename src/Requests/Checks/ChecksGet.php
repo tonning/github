@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Checks;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -22,24 +21,22 @@ use Saloon\Http\Request;
  */
 class ChecksGet extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/check-runs/{$this->checkRunId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/check-runs/{$this->checkRunId}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $checkRunId The unique identifier of the check run.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $checkRunId,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  int  $checkRunId The unique identifier of the check run.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $checkRunId,
+    ) {
+    }
 }

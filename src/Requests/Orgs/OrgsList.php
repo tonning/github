@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Orgs;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -18,26 +17,23 @@ use Saloon\Http\Request;
  */
 class OrgsList extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/organizations';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/organizations";
-	}
+    /**
+     * @param  null|int  $since An organization ID. Only return organizations with an ID greater than this ID.
+     */
+    public function __construct(
+        protected ?int $since = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|int $since An organization ID. Only return organizations with an ID greater than this ID.
-	 */
-	public function __construct(
-		protected ?int $since = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['since' => $this->since]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['since' => $this->since]);
+    }
 }

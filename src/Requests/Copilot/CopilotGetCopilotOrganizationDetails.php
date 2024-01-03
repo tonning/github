@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Copilot;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -27,20 +26,18 @@ use Saloon\Http\Request;
  */
 class CopilotGetCopilotOrganizationDetails extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/copilot/billing";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/copilot/billing";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected string $org,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $org,
+    ) {
+    }
 }

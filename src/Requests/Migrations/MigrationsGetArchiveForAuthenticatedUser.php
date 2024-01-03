@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Migrations;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -39,20 +38,18 @@ use Saloon\Http\Request;
  */
 class MigrationsGetArchiveForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/migrations/{$this->migrationId}/archive";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/migrations/{$this->migrationId}/archive";
-	}
-
-
-	/**
-	 * @param int $migrationId The unique identifier of the migration.
-	 */
-	public function __construct(
-		protected int $migrationId,
-	) {
-	}
+    /**
+     * @param  int  $migrationId The unique identifier of the migration.
+     */
+    public function __construct(
+        protected int $migrationId,
+    ) {
+    }
 }

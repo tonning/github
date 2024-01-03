@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -21,20 +20,18 @@ use Saloon\Http\Request;
  */
 class AppsGetSubscriptionPlanForAccount extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/marketplace_listing/accounts/{$this->accountId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/marketplace_listing/accounts/{$this->accountId}";
-	}
-
-
-	/**
-	 * @param int $accountId account_id parameter
-	 */
-	public function __construct(
-		protected int $accountId,
-	) {
-	}
+    /**
+     * @param  int  $accountId account_id parameter
+     */
+    public function __construct(
+        protected int $accountId,
+    ) {
+    }
 }

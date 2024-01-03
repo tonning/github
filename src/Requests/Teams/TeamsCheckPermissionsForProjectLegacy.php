@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Teams;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -19,22 +18,20 @@ use Saloon\Http\Request;
  */
 class TeamsCheckPermissionsForProjectLegacy extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/teams/{$this->teamId}/projects/{$this->projectId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/teams/{$this->teamId}/projects/{$this->projectId}";
-	}
-
-
-	/**
-	 * @param int $teamId The unique identifier of the team.
-	 * @param int $projectId The unique identifier of the project.
-	 */
-	public function __construct(
-		protected int $teamId,
-		protected int $projectId,
-	) {
-	}
+    /**
+     * @param  int  $teamId The unique identifier of the team.
+     * @param  int  $projectId The unique identifier of the project.
+     */
+    public function __construct(
+        protected int $teamId,
+        protected int $projectId,
+    ) {
+    }
 }

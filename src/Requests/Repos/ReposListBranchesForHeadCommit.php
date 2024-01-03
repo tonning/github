@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,24 +19,22 @@ use Saloon\Http\Request;
  */
 class ReposListBranchesForHeadCommit extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/commits/{$this->commitSha}/branches-where-head";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/commits/{$this->commitSha}/branches-where-head";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $commitSha The SHA of the commit.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $commitSha,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  string  $commitSha The SHA of the commit.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $commitSha,
+    ) {
+    }
 }

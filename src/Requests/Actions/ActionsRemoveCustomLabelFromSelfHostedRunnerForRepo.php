@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -27,26 +26,24 @@ use Saloon\Http\Request;
  */
 class ActionsRemoveCustomLabelFromSelfHostedRunnerForRepo extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/actions/runners/{$this->runnerId}/labels/{$this->name}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/actions/runners/{$this->runnerId}/labels/{$this->name}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $runnerId Unique identifier of the self-hosted runner.
-	 * @param string $name The name of a self-hosted runner's custom label.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $runnerId,
-		protected string $name,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  int  $runnerId Unique identifier of the self-hosted runner.
+     * @param  string  $name The name of a self-hosted runner's custom label.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $runnerId,
+        protected string $name,
+    ) {
+    }
 }

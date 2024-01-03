@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -79,32 +78,29 @@ use Saloon\Http\Request;
  */
 class ReposGetContent extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/contents/{$this->path}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/contents/{$this->path}";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  string  $path path parameter
+     * @param  null|string  $ref The name of the commit/branch/tag. Default: the repository’s default branch.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $path,
+        protected ?string $ref = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $path path parameter
-	 * @param null|string $ref The name of the commit/branch/tag. Default: the repository’s default branch.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $path,
-		protected ?string $ref = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['ref' => $this->ref]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['ref' => $this->ref]);
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -22,20 +21,18 @@ use Saloon\Http\Request;
  */
 class AppsDeleteAuthorization extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/applications/{$this->clientId}/grant";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/applications/{$this->clientId}/grant";
-	}
-
-
-	/**
-	 * @param string $clientId The client ID of the GitHub app.
-	 */
-	public function __construct(
-		protected string $clientId,
-	) {
-	}
+    /**
+     * @param  string  $clientId The client ID of the GitHub app.
+     */
+    public function __construct(
+        protected string $clientId,
+    ) {
+    }
 }

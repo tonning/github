@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Packages;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -16,16 +15,14 @@ use Saloon\Http\Request;
  */
 class PackagesListDockerMigrationConflictingPackagesForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/user/docker/conflicts';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/docker/conflicts";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

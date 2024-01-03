@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Git;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -61,24 +60,21 @@ use Saloon\Http\Request;
  */
 class GitGetTag extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/git/tags/{$this->tagSha}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/git/tags/{$this->tagSha}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $tagSha
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $tagSha,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $tagSha,
+    ) {
+    }
 }

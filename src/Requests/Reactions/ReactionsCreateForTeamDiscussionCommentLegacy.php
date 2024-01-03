@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Reactions;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -25,26 +24,24 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class ReactionsCreateForTeamDiscussionCommentLegacy extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/teams/{$this->teamId}/discussions/{$this->discussionNumber}/comments/{$this->commentNumber}/reactions";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/teams/{$this->teamId}/discussions/{$this->discussionNumber}/comments/{$this->commentNumber}/reactions";
-	}
-
-
-	/**
-	 * @param int $teamId The unique identifier of the team.
-	 * @param int $discussionNumber The number that identifies the discussion.
-	 * @param int $commentNumber The number that identifies the comment.
-	 */
-	public function __construct(
-		protected int $teamId,
-		protected int $discussionNumber,
-		protected int $commentNumber,
-	) {
-	}
+    /**
+     * @param  int  $teamId The unique identifier of the team.
+     * @param  int  $discussionNumber The number that identifies the discussion.
+     * @param  int  $commentNumber The number that identifies the comment.
+     */
+    public function __construct(
+        protected int $teamId,
+        protected int $discussionNumber,
+        protected int $commentNumber,
+    ) {
+    }
 }

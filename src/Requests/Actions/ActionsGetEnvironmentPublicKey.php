@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -23,22 +22,20 @@ use Saloon\Http\Request;
  */
 class ActionsGetEnvironmentPublicKey extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repositories/{$this->repositoryId}/environments/{$this->environmentName}/secrets/public-key";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repositories/{$this->repositoryId}/environments/{$this->environmentName}/secrets/public-key";
-	}
-
-
-	/**
-	 * @param int $repositoryId The unique identifier of the repository.
-	 * @param string $environmentName The name of the environment. The name must be URL encoded. For example, any slashes in the name must be replaced with `%2F`.
-	 */
-	public function __construct(
-		protected int $repositoryId,
-		protected string $environmentName,
-	) {
-	}
+    /**
+     * @param  int  $repositoryId The unique identifier of the repository.
+     * @param  string  $environmentName The name of the environment. The name must be URL encoded. For example, any slashes in the name must be replaced with `%2F`.
+     */
+    public function __construct(
+        protected int $repositoryId,
+        protected string $environmentName,
+    ) {
+    }
 }

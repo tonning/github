@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Orgs;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -31,22 +30,20 @@ use Saloon\Http\Request;
  */
 class OrgsGetOrgRole extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/organization-roles/{$this->roleId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/organization-roles/{$this->roleId}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param int $roleId The unique identifier of the role.
-	 */
-	public function __construct(
-		protected string $org,
-		protected int $roleId,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  int  $roleId The unique identifier of the role.
+     */
+    public function __construct(
+        protected string $org,
+        protected int $roleId,
+    ) {
+    }
 }

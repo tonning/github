@@ -12,35 +12,31 @@ use Tonning\Github\Resource;
 
 class Meta extends Resource
 {
-	public function metaRoot(): Response
-	{
-		return $this->connector->send(new MetaRoot());
-	}
+    public function metaRoot(): Response
+    {
+        return $this->connector->send(new MetaRoot());
+    }
 
+    public function metaGet(): Response
+    {
+        return $this->connector->send(new MetaGet());
+    }
 
-	public function metaGet(): Response
-	{
-		return $this->connector->send(new MetaGet());
-	}
+    /**
+     * @param  string  $s The words to show in Octocat's speech bubble
+     */
+    public function metaGetOctocat(?string $s): Response
+    {
+        return $this->connector->send(new MetaGetOctocat($s));
+    }
 
+    public function metaGetAllVersions(): Response
+    {
+        return $this->connector->send(new MetaGetAllVersions());
+    }
 
-	/**
-	 * @param string $s The words to show in Octocat's speech bubble
-	 */
-	public function metaGetOctocat(?string $s): Response
-	{
-		return $this->connector->send(new MetaGetOctocat($s));
-	}
-
-
-	public function metaGetAllVersions(): Response
-	{
-		return $this->connector->send(new MetaGetAllVersions());
-	}
-
-
-	public function metaGetZen(): Response
-	{
-		return $this->connector->send(new MetaGetZen());
-	}
+    public function metaGetZen(): Response
+    {
+        return $this->connector->send(new MetaGetZen());
+    }
 }

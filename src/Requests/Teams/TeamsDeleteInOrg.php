@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Teams;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,22 +19,20 @@ use Saloon\Http\Request;
  */
 class TeamsDeleteInOrg extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/teams/{$this->teamSlug}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/teams/{$this->teamSlug}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param string $teamSlug The slug of the team name.
-	 */
-	public function __construct(
-		protected string $org,
-		protected string $teamSlug,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  string  $teamSlug The slug of the team name.
+     */
+    public function __construct(
+        protected string $org,
+        protected string $teamSlug,
+    ) {
+    }
 }
