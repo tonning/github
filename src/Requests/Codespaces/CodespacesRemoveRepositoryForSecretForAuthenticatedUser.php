@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Codespaces;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -18,22 +17,19 @@ use Saloon\Http\Request;
  */
 class CodespacesRemoveRepositoryForSecretForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/codespaces/secrets/{$this->secretName}/repositories/{$this->repositoryId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/codespaces/secrets/{$this->secretName}/repositories/{$this->repositoryId}";
-	}
-
-
-	/**
-	 * @param string $secretName The name of the secret.
-	 * @param int $repositoryId
-	 */
-	public function __construct(
-		protected string $secretName,
-		protected int $repositoryId,
-	) {
-	}
+    /**
+     * @param  string  $secretName The name of the secret.
+     */
+    public function __construct(
+        protected string $secretName,
+        protected int $repositoryId,
+    ) {
+    }
 }

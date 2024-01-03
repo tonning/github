@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -16,25 +15,23 @@ use Saloon\Http\Request;
  */
 class ReposGetOrgRuleSuite extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/rulesets/rule-suites/{$this->ruleSuiteId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/rulesets/rule-suites/{$this->ruleSuiteId}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param int $ruleSuiteId The unique identifier of the rule suite result.
-	 * To get this ID, you can use [GET /repos/{owner}/{repo}/rulesets/rule-suites](https://docs.github.com/rest/repos/rule-suites#list-repository-rule-suites)
-	 * for repositories and [GET /orgs/{org}/rulesets/rule-suites](https://docs.github.com/rest/orgs/rule-suites#list-organization-rule-suites)
-	 * for organizations.
-	 */
-	public function __construct(
-		protected string $org,
-		protected int $ruleSuiteId,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  int  $ruleSuiteId The unique identifier of the rule suite result.
+     * To get this ID, you can use [GET /repos/{owner}/{repo}/rulesets/rule-suites](https://docs.github.com/rest/repos/rule-suites#list-repository-rule-suites)
+     * for repositories and [GET /orgs/{org}/rulesets/rule-suites](https://docs.github.com/rest/orgs/rule-suites#list-organization-rule-suites)
+     * for organizations.
+     */
+    public function __construct(
+        protected string $org,
+        protected int $ruleSuiteId,
+    ) {
+    }
 }

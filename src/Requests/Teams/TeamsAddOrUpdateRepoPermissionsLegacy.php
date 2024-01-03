@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Teams;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -27,24 +26,22 @@ use Saloon\Http\Request;
  */
 class TeamsAddOrUpdateRepoPermissionsLegacy extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/teams/{$this->teamId}/repos/{$this->owner}/{$this->repo}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/teams/{$this->teamId}/repos/{$this->owner}/{$this->repo}";
-	}
-
-
-	/**
-	 * @param int $teamId The unique identifier of the team.
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected int $teamId,
-		protected string $owner,
-		protected string $repo,
-	) {
-	}
+    /**
+     * @param  int  $teamId The unique identifier of the team.
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected int $teamId,
+        protected string $owner,
+        protected string $repo,
+    ) {
+    }
 }

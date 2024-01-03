@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Orgs;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,28 +12,25 @@ use Saloon\Http\Request;
  */
 class OrgsListMembershipsForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/user/memberships/orgs';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/memberships/orgs";
-	}
+    /**
+     * @param  null|string  $state Indicates the state of the memberships to return. If not specified, the API returns both active and pending memberships.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected ?string $state = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|string $state Indicates the state of the memberships to return. If not specified, the API returns both active and pending memberships.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected ?string $state = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['state' => $this->state, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['state' => $this->state, 'page' => $this->page]);
+    }
 }

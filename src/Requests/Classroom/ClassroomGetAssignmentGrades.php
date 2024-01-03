@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Classroom;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -14,20 +13,18 @@ use Saloon\Http\Request;
  */
 class ClassroomGetAssignmentGrades extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/assignments/{$this->assignmentId}/grades";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/assignments/{$this->assignmentId}/grades";
-	}
-
-
-	/**
-	 * @param int $assignmentId The unique identifier of the classroom assignment.
-	 */
-	public function __construct(
-		protected int $assignmentId,
-	) {
-	}
+    /**
+     * @param  int  $assignmentId The unique identifier of the classroom assignment.
+     */
+    public function __construct(
+        protected int $assignmentId,
+    ) {
+    }
 }

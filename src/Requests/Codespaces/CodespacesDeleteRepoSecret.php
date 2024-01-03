@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Codespaces;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,24 +14,22 @@ use Saloon\Http\Request;
  */
 class CodespacesDeleteRepoSecret extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/codespaces/secrets/{$this->secretName}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/codespaces/secrets/{$this->secretName}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $secretName The name of the secret.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $secretName,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  string  $secretName The name of the secret.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $secretName,
+    ) {
+    }
 }

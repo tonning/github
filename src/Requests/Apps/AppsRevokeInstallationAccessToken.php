@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -24,16 +23,14 @@ use Saloon\Http\Request;
  */
 class AppsRevokeInstallationAccessToken extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return '/installation/token';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/installation/token";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

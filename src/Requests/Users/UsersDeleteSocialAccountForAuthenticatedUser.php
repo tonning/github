@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Users;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -14,16 +13,14 @@ use Saloon\Http\Request;
  */
 class UsersDeleteSocialAccountForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return '/user/social_accounts';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/social_accounts";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

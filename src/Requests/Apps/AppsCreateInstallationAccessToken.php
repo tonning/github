@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -25,22 +24,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class AppsCreateInstallationAccessToken extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/app/installations/{$this->installationId}/access_tokens";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/app/installations/{$this->installationId}/access_tokens";
-	}
-
-
-	/**
-	 * @param int $installationId The unique identifier of the installation.
-	 */
-	public function __construct(
-		protected int $installationId,
-	) {
-	}
+    /**
+     * @param  int  $installationId The unique identifier of the installation.
+     */
+    public function __construct(
+        protected int $installationId,
+    ) {
+    }
 }

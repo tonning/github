@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Teams;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -23,22 +22,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class TeamsUpdateLegacy extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::PATCH;
+    protected Method $method = Method::PATCH;
 
+    public function resolveEndpoint(): string
+    {
+        return "/teams/{$this->teamId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/teams/{$this->teamId}";
-	}
-
-
-	/**
-	 * @param int $teamId The unique identifier of the team.
-	 */
-	public function __construct(
-		protected int $teamId,
-	) {
-	}
+    /**
+     * @param  int  $teamId The unique identifier of the team.
+     */
+    public function __construct(
+        protected int $teamId,
+    ) {
+    }
 }

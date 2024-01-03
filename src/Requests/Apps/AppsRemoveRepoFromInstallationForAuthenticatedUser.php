@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -21,22 +20,20 @@ use Saloon\Http\Request;
  */
 class AppsRemoveRepoFromInstallationForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/installations/{$this->installationId}/repositories/{$this->repositoryId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/installations/{$this->installationId}/repositories/{$this->repositoryId}";
-	}
-
-
-	/**
-	 * @param int $installationId The unique identifier of the installation.
-	 * @param int $repositoryId The unique identifier of the repository.
-	 */
-	public function __construct(
-		protected int $installationId,
-		protected int $repositoryId,
-	) {
-	}
+    /**
+     * @param  int  $installationId The unique identifier of the installation.
+     * @param  int  $repositoryId The unique identifier of the repository.
+     */
+    public function __construct(
+        protected int $installationId,
+        protected int $repositoryId,
+    ) {
+    }
 }

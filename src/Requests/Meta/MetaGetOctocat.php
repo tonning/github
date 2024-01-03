@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Meta;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,26 +12,23 @@ use Saloon\Http\Request;
  */
 class MetaGetOctocat extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/octocat';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/octocat";
-	}
+    /**
+     * @param  null|string  $s The words to show in Octocat's speech bubble
+     */
+    public function __construct(
+        protected ?string $s = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|string $s The words to show in Octocat's speech bubble
-	 */
-	public function __construct(
-		protected ?string $s = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['s' => $this->s]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['s' => $this->s]);
+    }
 }

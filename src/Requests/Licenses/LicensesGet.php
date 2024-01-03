@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Licenses;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -14,20 +13,15 @@ use Saloon\Http\Request;
  */
 class LicensesGet extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/licenses/{$this->license}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/licenses/{$this->license}";
-	}
-
-
-	/**
-	 * @param string $license
-	 */
-	public function __construct(
-		protected string $license,
-	) {
-	}
+    public function __construct(
+        protected string $license,
+    ) {
+    }
 }

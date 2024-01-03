@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Search;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -49,32 +48,29 @@ use Saloon\Http\Request;
  */
 class SearchCode extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/search/code';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/search/code";
-	}
+    /**
+     * @param  string  $q The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/search/search#constructing-a-search-query). See "[Searching code](https://docs.github.com/search-github/searching-on-github/searching-code)" for a detailed list of qualifiers.
+     * @param  null|string  $sort **This field is deprecated.** Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/search/search#ranking-search-results)
+     * @param  null|string  $order **This field is deprecated.** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected string $q,
+        protected ?string $sort = null,
+        protected ?string $order = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $q The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/search/search#constructing-a-search-query). See "[Searching code](https://docs.github.com/search-github/searching-on-github/searching-code)" for a detailed list of qualifiers.
-	 * @param null|string $sort **This field is deprecated.** Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/search/search#ranking-search-results)
-	 * @param null|string $order **This field is deprecated.** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected string $q,
-		protected ?string $sort = null,
-		protected ?string $order = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['q' => $this->q, 'sort' => $this->sort, 'order' => $this->order, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['q' => $this->q, 'sort' => $this->sort, 'order' => $this->order, 'page' => $this->page]);
+    }
 }

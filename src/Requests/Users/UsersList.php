@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Users;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -19,26 +18,23 @@ use Saloon\Http\Request;
  */
 class UsersList extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/users';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/users";
-	}
+    /**
+     * @param  null|int  $since A user ID. Only return users with an ID greater than this ID.
+     */
+    public function __construct(
+        protected ?int $since = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|int $since A user ID. Only return users with an ID greater than this ID.
-	 */
-	public function __construct(
-		protected ?int $since = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['since' => $this->since]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['since' => $this->since]);
+    }
 }

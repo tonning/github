@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,24 +19,22 @@ use Saloon\Http\Request;
  */
 class ActionsDeleteEnvironmentSecret extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repositories/{$this->repositoryId}/environments/{$this->environmentName}/secrets/{$this->secretName}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repositories/{$this->repositoryId}/environments/{$this->environmentName}/secrets/{$this->secretName}";
-	}
-
-
-	/**
-	 * @param int $repositoryId The unique identifier of the repository.
-	 * @param string $environmentName The name of the environment. The name must be URL encoded. For example, any slashes in the name must be replaced with `%2F`.
-	 * @param string $secretName The name of the secret.
-	 */
-	public function __construct(
-		protected int $repositoryId,
-		protected string $environmentName,
-		protected string $secretName,
-	) {
-	}
+    /**
+     * @param  int  $repositoryId The unique identifier of the repository.
+     * @param  string  $environmentName The name of the environment. The name must be URL encoded. For example, any slashes in the name must be replaced with `%2F`.
+     * @param  string  $secretName The name of the secret.
+     */
+    public function __construct(
+        protected int $repositoryId,
+        protected string $environmentName,
+        protected string $secretName,
+    ) {
+    }
 }

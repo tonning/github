@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -20,22 +19,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class AppsCheckToken extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/applications/{$this->clientId}/token";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/applications/{$this->clientId}/token";
-	}
-
-
-	/**
-	 * @param string $clientId The client ID of the GitHub app.
-	 */
-	public function __construct(
-		protected string $clientId,
-	) {
-	}
+    /**
+     * @param  string  $clientId The client ID of the GitHub app.
+     */
+    public function __construct(
+        protected string $clientId,
+    ) {
+    }
 }

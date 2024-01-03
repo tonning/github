@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Checks;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -22,38 +21,35 @@ use Saloon\Http\Request;
  */
 class ChecksListForSuite extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/check-suites/{$this->checkSuiteId}/check-runs";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/check-suites/{$this->checkSuiteId}/check-runs";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  int  $checkSuiteId The unique identifier of the check suite.
+     * @param  null|string  $checkName Returns check runs with the specified `name`.
+     * @param  null|string  $status Returns check runs with the specified `status`.
+     * @param  null|string  $filter Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $checkSuiteId,
+        protected ?string $checkName = null,
+        protected ?string $status = null,
+        protected ?string $filter = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $checkSuiteId The unique identifier of the check suite.
-	 * @param null|string $checkName Returns check runs with the specified `name`.
-	 * @param null|string $status Returns check runs with the specified `status`.
-	 * @param null|string $filter Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $checkSuiteId,
-		protected ?string $checkName = null,
-		protected ?string $status = null,
-		protected ?string $filter = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['check_name' => $this->checkName, 'status' => $this->status, 'filter' => $this->filter, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['check_name' => $this->checkName, 'status' => $this->status, 'filter' => $this->filter, 'page' => $this->page]);
+    }
 }

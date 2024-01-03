@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Reactions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -17,26 +16,24 @@ use Saloon\Http\Request;
  */
 class ReactionsDeleteForIssue extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/issues/{$this->issueNumber}/reactions/{$this->reactionId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/issues/{$this->issueNumber}/reactions/{$this->reactionId}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $issueNumber The number that identifies the issue.
-	 * @param int $reactionId The unique identifier of the reaction.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $issueNumber,
-		protected int $reactionId,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  int  $issueNumber The number that identifies the issue.
+     * @param  int  $reactionId The unique identifier of the reaction.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $issueNumber,
+        protected int $reactionId,
+    ) {
+    }
 }

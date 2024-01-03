@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Meta;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,16 +12,14 @@ use Saloon\Http\Request;
  */
 class MetaGetAllVersions extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/versions';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/versions";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Copilot;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -33,20 +32,18 @@ use Saloon\Http\Request;
  */
 class CopilotCancelCopilotSeatAssignmentForTeams extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/copilot/billing/selected_teams";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/copilot/billing/selected_teams";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected string $org,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $org,
+    ) {
+    }
 }

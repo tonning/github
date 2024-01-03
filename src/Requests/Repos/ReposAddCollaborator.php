@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -60,24 +59,22 @@ use Saloon\Http\Request;
  */
 class ReposAddCollaborator extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/collaborators/{$this->username}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/collaborators/{$this->username}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $username The handle for the GitHub user account.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $username,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  string  $username The handle for the GitHub user account.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $username,
+    ) {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Teams;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -33,22 +32,20 @@ use Saloon\Http\Request;
  */
 class TeamsRemoveMembershipForUserLegacy extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/teams/{$this->teamId}/memberships/{$this->username}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/teams/{$this->teamId}/memberships/{$this->username}";
-	}
-
-
-	/**
-	 * @param int $teamId The unique identifier of the team.
-	 * @param string $username The handle for the GitHub user account.
-	 */
-	public function __construct(
-		protected int $teamId,
-		protected string $username,
-	) {
-	}
+    /**
+     * @param  int  $teamId The unique identifier of the team.
+     * @param  string  $username The handle for the GitHub user account.
+     */
+    public function __construct(
+        protected int $teamId,
+        protected string $username,
+    ) {
+    }
 }

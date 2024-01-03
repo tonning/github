@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Checks;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -29,46 +28,42 @@ use Saloon\Http\Request;
  */
 class ChecksListForRef extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/commits/{$this->ref}/check-runs";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/commits/{$this->ref}/check-runs";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  string  $ref The commit reference. Can be a commit SHA, branch name (`heads/BRANCH_NAME`), or tag name (`tags/TAG_NAME`). For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
+     * @param  null|string  $checkName Returns check runs with the specified `name`.
+     * @param  null|string  $status Returns check runs with the specified `status`.
+     * @param  null|string  $filter Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $ref,
+        protected ?string $checkName = null,
+        protected ?string $status = null,
+        protected ?string $filter = null,
+        protected ?int $page = null,
+        protected ?int $appId = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $ref The commit reference. Can be a commit SHA, branch name (`heads/BRANCH_NAME`), or tag name (`tags/TAG_NAME`). For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
-	 * @param null|string $checkName Returns check runs with the specified `name`.
-	 * @param null|string $status Returns check runs with the specified `status`.
-	 * @param null|string $filter Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs.
-	 * @param null|int $page Page number of the results to fetch.
-	 * @param null|int $appId
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $ref,
-		protected ?string $checkName = null,
-		protected ?string $status = null,
-		protected ?string $filter = null,
-		protected ?int $page = null,
-		protected ?int $appId = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter([
-			'check_name' => $this->checkName,
-			'status' => $this->status,
-			'filter' => $this->filter,
-			'page' => $this->page,
-			'app_id' => $this->appId,
-		]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter([
+            'check_name' => $this->checkName,
+            'status' => $this->status,
+            'filter' => $this->filter,
+            'page' => $this->page,
+            'app_id' => $this->appId,
+        ]);
+    }
 }

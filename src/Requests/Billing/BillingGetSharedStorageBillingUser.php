@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Billing;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -21,20 +20,18 @@ use Saloon\Http\Request;
  */
 class BillingGetSharedStorageBillingUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/users/{$this->username}/settings/billing/shared-storage";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/users/{$this->username}/settings/billing/shared-storage";
-	}
-
-
-	/**
-	 * @param string $username The handle for the GitHub user account.
-	 */
-	public function __construct(
-		protected string $username,
-	) {
-	}
+    /**
+     * @param  string  $username The handle for the GitHub user account.
+     */
+    public function __construct(
+        protected string $username,
+    ) {
+    }
 }

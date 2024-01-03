@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Orgs;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -16,20 +15,18 @@ use Saloon\Http\Request;
  */
 class OrgsGetMembershipForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/memberships/orgs/{$this->org}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/memberships/orgs/{$this->org}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected string $org,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $org,
+    ) {
+    }
 }

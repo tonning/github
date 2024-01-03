@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Projects;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,22 +14,20 @@ use Saloon\Http\Request;
  */
 class ProjectsGetPermissionForUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/projects/{$this->projectId}/collaborators/{$this->username}/permission";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/projects/{$this->projectId}/collaborators/{$this->username}/permission";
-	}
-
-
-	/**
-	 * @param int $projectId The unique identifier of the project.
-	 * @param string $username The handle for the GitHub user account.
-	 */
-	public function __construct(
-		protected int $projectId,
-		protected string $username,
-	) {
-	}
+    /**
+     * @param  int  $projectId The unique identifier of the project.
+     * @param  string  $username The handle for the GitHub user account.
+     */
+    public function __construct(
+        protected int $projectId,
+        protected string $username,
+    ) {
+    }
 }

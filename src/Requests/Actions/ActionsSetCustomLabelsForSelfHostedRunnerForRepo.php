@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -23,24 +22,22 @@ use Saloon\Http\Request;
  */
 class ActionsSetCustomLabelsForSelfHostedRunnerForRepo extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/actions/runners/{$this->runnerId}/labels";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/actions/runners/{$this->runnerId}/labels";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $runnerId Unique identifier of the self-hosted runner.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $runnerId,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  int  $runnerId Unique identifier of the self-hosted runner.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $runnerId,
+    ) {
+    }
 }

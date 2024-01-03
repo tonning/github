@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Orgs;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,32 +14,29 @@ use Saloon\Http\Request;
  */
 class OrgsListPendingInvitations extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/invitations";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/invitations";
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  null|int  $page Page number of the results to fetch.
+     * @param  null|string  $role Filter invitations by their member role.
+     * @param  null|string  $invitationSource Filter invitations by their invitation source.
+     */
+    public function __construct(
+        protected string $org,
+        protected ?int $page = null,
+        protected ?string $role = null,
+        protected ?string $invitationSource = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param null|int $page Page number of the results to fetch.
-	 * @param null|string $role Filter invitations by their member role.
-	 * @param null|string $invitationSource Filter invitations by their invitation source.
-	 */
-	public function __construct(
-		protected string $org,
-		protected ?int $page = null,
-		protected ?string $role = null,
-		protected ?string $invitationSource = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['page' => $this->page, 'role' => $this->role, 'invitation_source' => $this->invitationSource]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['page' => $this->page, 'role' => $this->role, 'invitation_source' => $this->invitationSource]);
+    }
 }

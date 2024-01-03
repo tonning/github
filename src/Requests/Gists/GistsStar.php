@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Gists;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,20 +14,18 @@ use Saloon\Http\Request;
  */
 class GistsStar extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/gists/{$this->gistId}/star";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/gists/{$this->gistId}/star";
-	}
-
-
-	/**
-	 * @param string $gistId The unique identifier of the gist.
-	 */
-	public function __construct(
-		protected string $gistId,
-	) {
-	}
+    /**
+     * @param  string  $gistId The unique identifier of the gist.
+     */
+    public function __construct(
+        protected string $gistId,
+    ) {
+    }
 }

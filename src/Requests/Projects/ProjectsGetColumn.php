@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Projects;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,20 +12,18 @@ use Saloon\Http\Request;
  */
 class ProjectsGetColumn extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/projects/columns/{$this->columnId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/projects/columns/{$this->columnId}";
-	}
-
-
-	/**
-	 * @param int $columnId The unique identifier of the column.
-	 */
-	public function __construct(
-		protected int $columnId,
-	) {
-	}
+    /**
+     * @param  int  $columnId The unique identifier of the column.
+     */
+    public function __construct(
+        protected int $columnId,
+    ) {
+    }
 }

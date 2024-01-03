@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -24,30 +23,27 @@ use Saloon\Http\Request;
  */
 class ActionsListSelectedReposForOrgVariable extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/actions/variables/{$this->name}/repositories";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/actions/variables/{$this->name}/repositories";
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  string  $name The name of the variable.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected string $org,
+        protected string $name,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param string $name The name of the variable.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected string $org,
-		protected string $name,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['page' => $this->page]);
+    }
 }

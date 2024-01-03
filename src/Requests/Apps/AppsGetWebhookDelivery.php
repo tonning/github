@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Apps;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -17,20 +16,15 @@ use Saloon\Http\Request;
  */
 class AppsGetWebhookDelivery extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/app/hook/deliveries/{$this->deliveryId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/app/hook/deliveries/{$this->deliveryId}";
-	}
-
-
-	/**
-	 * @param int $deliveryId
-	 */
-	public function __construct(
-		protected int $deliveryId,
-	) {
-	}
+    public function __construct(
+        protected int $deliveryId,
+    ) {
+    }
 }

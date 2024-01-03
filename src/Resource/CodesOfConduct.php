@@ -9,17 +9,13 @@ use Tonning\Github\Resource;
 
 class CodesOfConduct extends Resource
 {
-	public function codesOfConductGetAllCodesOfConduct(): Response
-	{
-		return $this->connector->send(new CodesOfConductGetAllCodesOfConduct());
-	}
+    public function codesOfConductGetAllCodesOfConduct(): Response
+    {
+        return $this->connector->send(new CodesOfConductGetAllCodesOfConduct());
+    }
 
-
-	/**
-	 * @param string $key
-	 */
-	public function codesOfConductGetConductCode(string $key): Response
-	{
-		return $this->connector->send(new CodesOfConductGetConductCode($key));
-	}
+    public function codesOfConductGetConductCode(string $key): Response
+    {
+        return $this->connector->send(new CodesOfConductGetConductCode($key));
+    }
 }

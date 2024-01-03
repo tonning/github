@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Search;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -31,28 +30,25 @@ use Saloon\Http\Request;
  */
 class SearchTopics extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/search/topics';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/search/topics";
-	}
+    /**
+     * @param  string  $q The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/search/search#constructing-a-search-query).
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected string $q,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $q The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/search/search#constructing-a-search-query).
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected string $q,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['q' => $this->q, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['q' => $this->q, 'page' => $this->page]);
+    }
 }

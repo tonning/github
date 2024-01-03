@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Gists;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -19,18 +18,16 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class GistsCreate extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return '/gists';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/gists";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

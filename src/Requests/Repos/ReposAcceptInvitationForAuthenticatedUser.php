@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,22 +12,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class ReposAcceptInvitationForAuthenticatedUser extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::PATCH;
+    protected Method $method = Method::PATCH;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/repository_invitations/{$this->invitationId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/repository_invitations/{$this->invitationId}";
-	}
-
-
-	/**
-	 * @param int $invitationId The unique identifier of the invitation.
-	 */
-	public function __construct(
-		protected int $invitationId,
-	) {
-	}
+    /**
+     * @param  int  $invitationId The unique identifier of the invitation.
+     */
+    public function __construct(
+        protected int $invitationId,
+    ) {
+    }
 }

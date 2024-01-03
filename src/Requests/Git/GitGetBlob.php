@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Git;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -16,24 +15,21 @@ use Saloon\Http\Request;
  */
 class GitGetBlob extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/git/blobs/{$this->fileSha}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/git/blobs/{$this->fileSha}";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $fileSha
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $fileSha,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $fileSha,
+    ) {
+    }
 }

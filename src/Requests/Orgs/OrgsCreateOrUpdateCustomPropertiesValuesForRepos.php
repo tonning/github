@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Orgs;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -33,22 +32,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class OrgsCreateOrUpdateCustomPropertiesValuesForRepos extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::PATCH;
+    protected Method $method = Method::PATCH;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/properties/values";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/properties/values";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected string $org,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $org,
+    ) {
+    }
 }

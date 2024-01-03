@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Projects;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,32 +14,29 @@ use Saloon\Http\Request;
  */
 class ProjectsListForRepo extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/projects";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/projects";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  null|string  $state Indicates the state of the projects to return.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected ?string $state = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param null|string $state Indicates the state of the projects to return.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected ?string $state = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['state' => $this->state, 'page' => $this->page]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['state' => $this->state, 'page' => $this->page]);
+    }
 }

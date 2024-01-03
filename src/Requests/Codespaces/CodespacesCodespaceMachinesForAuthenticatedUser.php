@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Codespaces;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -19,20 +18,18 @@ use Saloon\Http\Request;
  */
 class CodespacesCodespaceMachinesForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/codespaces/{$this->codespaceName}/machines";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/codespaces/{$this->codespaceName}/machines";
-	}
-
-
-	/**
-	 * @param string $codespaceName The name of the codespace.
-	 */
-	public function __construct(
-		protected string $codespaceName,
-	) {
-	}
+    /**
+     * @param  string  $codespaceName The name of the codespace.
+     */
+    public function __construct(
+        protected string $codespaceName,
+    ) {
+    }
 }

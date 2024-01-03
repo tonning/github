@@ -9,14 +9,13 @@ use Tonning\Github\Resource;
 
 class Markdown extends Resource
 {
-	public function markdownRender(): Response
-	{
-		return $this->connector->send(new MarkdownRender());
-	}
+    public function markdownRender(): Response
+    {
+        return $this->connector->send(new MarkdownRender());
+    }
 
-
-	public function markdownRenderRaw(): Response
-	{
-		return $this->connector->send(new MarkdownRenderRaw());
-	}
+    public function markdownRenderRaw(): Response
+    {
+        return $this->connector->send(new MarkdownRenderRaw());
+    }
 }

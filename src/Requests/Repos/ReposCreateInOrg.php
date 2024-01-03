@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -26,22 +25,20 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class ReposCreateInOrg extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/repos";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/repos";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 */
-	public function __construct(
-		protected string $org,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     */
+    public function __construct(
+        protected string $org,
+    ) {
+    }
 }

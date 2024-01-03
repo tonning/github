@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Search;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -29,40 +28,37 @@ use Saloon\Http\Request;
  */
 class SearchLabels extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/search/labels';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/search/labels";
-	}
+    /**
+     * @param  int  $repositoryId The id of the repository.
+     * @param  string  $q The search keywords. This endpoint does not accept qualifiers in the query. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/search/search#constructing-a-search-query).
+     * @param  null|string  $sort Sorts the results of your query by when the label was `created` or `updated`. Default: [best match](https://docs.github.com/rest/search/search#ranking-search-results)
+     * @param  null|string  $order Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`.
+     * @param  null|int  $page Page number of the results to fetch.
+     */
+    public function __construct(
+        protected int $repositoryId,
+        protected string $q,
+        protected ?string $sort = null,
+        protected ?string $order = null,
+        protected ?int $page = null,
+    ) {
+    }
 
-
-	/**
-	 * @param int $repositoryId The id of the repository.
-	 * @param string $q The search keywords. This endpoint does not accept qualifiers in the query. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/search/search#constructing-a-search-query).
-	 * @param null|string $sort Sorts the results of your query by when the label was `created` or `updated`. Default: [best match](https://docs.github.com/rest/search/search#ranking-search-results)
-	 * @param null|string $order Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`.
-	 * @param null|int $page Page number of the results to fetch.
-	 */
-	public function __construct(
-		protected int $repositoryId,
-		protected string $q,
-		protected ?string $sort = null,
-		protected ?string $order = null,
-		protected ?int $page = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter([
-			'repository_id' => $this->repositoryId,
-			'q' => $this->q,
-			'sort' => $this->sort,
-			'order' => $this->order,
-			'page' => $this->page,
-		]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter([
+            'repository_id' => $this->repositoryId,
+            'q' => $this->q,
+            'sort' => $this->sort,
+            'order' => $this->order,
+            'page' => $this->page,
+        ]);
+    }
 }

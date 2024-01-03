@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Users;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -16,20 +15,18 @@ use Saloon\Http\Request;
  */
 class UsersDeleteSshSigningKeyForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/ssh_signing_keys/{$this->sshSigningKeyId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/ssh_signing_keys/{$this->sshSigningKeyId}";
-	}
-
-
-	/**
-	 * @param int $sshSigningKeyId The unique identifier of the SSH signing key.
-	 */
-	public function __construct(
-		protected int $sshSigningKeyId,
-	) {
-	}
+    /**
+     * @param  int  $sshSigningKeyId The unique identifier of the SSH signing key.
+     */
+    public function __construct(
+        protected int $sshSigningKeyId,
+    ) {
+    }
 }

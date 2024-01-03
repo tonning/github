@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Orgs;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -21,24 +20,22 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class OrgsReviewPatGrantRequest extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/personal-access-token-requests/{$this->patRequestId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/personal-access-token-requests/{$this->patRequestId}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param int $patRequestId Unique identifier of the request for access via fine-grained personal access token.
-	 */
-	public function __construct(
-		protected string $org,
-		protected int $patRequestId,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  int  $patRequestId Unique identifier of the request for access via fine-grained personal access token.
+     */
+    public function __construct(
+        protected string $org,
+        protected int $patRequestId,
+    ) {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Codespaces;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -19,28 +18,25 @@ use Saloon\Http\Request;
  */
 class CodespacesListForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/user/codespaces';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/codespaces";
-	}
+    /**
+     * @param  null|int  $page Page number of the results to fetch.
+     * @param  null|int  $repositoryId ID of the Repository to filter on
+     */
+    public function __construct(
+        protected ?int $page = null,
+        protected ?int $repositoryId = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|int $page Page number of the results to fetch.
-	 * @param null|int $repositoryId ID of the Repository to filter on
-	 */
-	public function __construct(
-		protected ?int $page = null,
-		protected ?int $repositoryId = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['page' => $this->page, 'repository_id' => $this->repositoryId]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['page' => $this->page, 'repository_id' => $this->repositoryId]);
+    }
 }

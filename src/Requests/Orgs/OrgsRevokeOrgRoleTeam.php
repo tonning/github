@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Orgs;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -22,24 +21,22 @@ use Saloon\Http\Request;
  */
 class OrgsRevokeOrgRoleTeam extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/organization-roles/teams/{$this->teamSlug}/{$this->roleId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/organization-roles/teams/{$this->teamSlug}/{$this->roleId}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param string $teamSlug The slug of the team name.
-	 * @param int $roleId The unique identifier of the role.
-	 */
-	public function __construct(
-		protected string $org,
-		protected string $teamSlug,
-		protected int $roleId,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  string  $teamSlug The slug of the team name.
+     * @param  int  $roleId The unique identifier of the role.
+     */
+    public function __construct(
+        protected string $org,
+        protected string $teamSlug,
+        protected int $roleId,
+    ) {
+    }
 }

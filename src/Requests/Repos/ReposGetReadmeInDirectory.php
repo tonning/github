@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Repos;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -17,32 +16,29 @@ use Saloon\Http\Request;
  */
 class ReposGetReadmeInDirectory extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/readme/{$this->dir}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/readme/{$this->dir}";
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  string  $dir The alternate path to look for a README file
+     * @param  null|string  $ref The name of the commit/branch/tag. Default: the repository’s default branch.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected string $dir,
+        protected ?string $ref = null,
+    ) {
+    }
 
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param string $dir The alternate path to look for a README file
-	 * @param null|string $ref The name of the commit/branch/tag. Default: the repository’s default branch.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected string $dir,
-		protected ?string $ref = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['ref' => $this->ref]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['ref' => $this->ref]);
+    }
 }

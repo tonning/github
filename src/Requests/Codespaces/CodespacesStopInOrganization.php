@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Codespaces;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -23,26 +22,24 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class CodespacesStopInOrganization extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/members/{$this->username}/codespaces/{$this->codespaceName}/stop";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/members/{$this->username}/codespaces/{$this->codespaceName}/stop";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param string $username The handle for the GitHub user account.
-	 * @param string $codespaceName The name of the codespace.
-	 */
-	public function __construct(
-		protected string $org,
-		protected string $username,
-		protected string $codespaceName,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  string  $username The handle for the GitHub user account.
+     * @param  string  $codespaceName The name of the codespace.
+     */
+    public function __construct(
+        protected string $org,
+        protected string $username,
+        protected string $codespaceName,
+    ) {
+    }
 }

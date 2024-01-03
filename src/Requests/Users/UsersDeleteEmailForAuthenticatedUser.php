@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Users;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,16 +12,14 @@ use Saloon\Http\Request;
  */
 class UsersDeleteEmailForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return '/user/emails';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/emails";
-	}
-
-
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -24,22 +23,20 @@ use Saloon\Http\Request;
  */
 class ActionsDeleteSelfHostedRunnerFromOrg extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/actions/runners/{$this->runnerId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/actions/runners/{$this->runnerId}";
-	}
-
-
-	/**
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param int $runnerId Unique identifier of the self-hosted runner.
-	 */
-	public function __construct(
-		protected string $org,
-		protected int $runnerId,
-	) {
-	}
+    /**
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  int  $runnerId Unique identifier of the self-hosted runner.
+     */
+    public function __construct(
+        protected string $org,
+        protected int $runnerId,
+    ) {
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Packages;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,26 +19,24 @@ use Saloon\Http\Request;
  */
 class PackagesGetPackageVersionForOrganization extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/orgs/{$this->org}/packages/{$this->packageType}/{$this->packageName}/versions/{$this->packageVersionId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/orgs/{$this->org}/packages/{$this->packageType}/{$this->packageName}/versions/{$this->packageVersionId}";
-	}
-
-
-	/**
-	 * @param string $packageType The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry.
-	 * @param string $packageName The name of the package.
-	 * @param string $org The organization name. The name is not case-sensitive.
-	 * @param int $packageVersionId Unique identifier of the package version.
-	 */
-	public function __construct(
-		protected string $packageType,
-		protected string $packageName,
-		protected string $org,
-		protected int $packageVersionId,
-	) {
-	}
+    /**
+     * @param  string  $packageType The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry.
+     * @param  string  $packageName The name of the package.
+     * @param  string  $org The organization name. The name is not case-sensitive.
+     * @param  int  $packageVersionId Unique identifier of the package version.
+     */
+    public function __construct(
+        protected string $packageType,
+        protected string $packageName,
+        protected string $org,
+        protected int $packageVersionId,
+    ) {
+    }
 }

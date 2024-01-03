@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Actions;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -20,24 +19,22 @@ use Saloon\Http\Request;
  */
 class ActionsDownloadJobLogsForWorkflowRun extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/repos/{$this->owner}/{$this->repo}/actions/jobs/{$this->jobId}/logs";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/repos/{$this->owner}/{$this->repo}/actions/jobs/{$this->jobId}/logs";
-	}
-
-
-	/**
-	 * @param string $owner The account owner of the repository. The name is not case-sensitive.
-	 * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-	 * @param int $jobId The unique identifier of the job.
-	 */
-	public function __construct(
-		protected string $owner,
-		protected string $repo,
-		protected int $jobId,
-	) {
-	}
+    /**
+     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
+     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param  int  $jobId The unique identifier of the job.
+     */
+    public function __construct(
+        protected string $owner,
+        protected string $repo,
+        protected int $jobId,
+    ) {
+    }
 }

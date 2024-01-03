@@ -2,7 +2,6 @@
 
 namespace Tonning\Github\Requests\Users;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,20 +14,18 @@ use Saloon\Http\Request;
  */
 class UsersDeletePublicSshKeyForAuthenticatedUser extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/user/keys/{$this->keyId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/user/keys/{$this->keyId}";
-	}
-
-
-	/**
-	 * @param int $keyId The unique identifier of the key.
-	 */
-	public function __construct(
-		protected int $keyId,
-	) {
-	}
+    /**
+     * @param  int  $keyId The unique identifier of the key.
+     */
+    public function __construct(
+        protected int $keyId,
+    ) {
+    }
 }
