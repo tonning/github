@@ -1,0 +1,33 @@
+<?php
+
+namespace Tonning\Github\Requests\Licenses;
+
+use DateTime;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+
+/**
+ * licenses/get
+ *
+ * Gets information about a specific license. For more information, see "[Licensing a repository
+ * ](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)."
+ */
+class LicensesGet extends Request
+{
+	protected Method $method = Method::GET;
+
+
+	public function resolveEndpoint(): string
+	{
+		return "/licenses/{$this->license}";
+	}
+
+
+	/**
+	 * @param string $license
+	 */
+	public function __construct(
+		protected string $license,
+	) {
+	}
+}
