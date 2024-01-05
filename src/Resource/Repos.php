@@ -6,6 +6,7 @@ use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Exceptions\Request\RequestException;
 use Saloon\Http\Response;
 use Tonning\Github\Enums\CommitStatus;
+use Tonning\Github\Requests\Repos\ReposGetCommitSha;
 use Tonning\Github\Requests\Repos\ReposAcceptInvitationForAuthenticatedUser;
 use Tonning\Github\Requests\Repos\ReposAddAppAccessRestrictions;
 use Tonning\Github\Requests\Repos\ReposAddCollaborator;
@@ -962,14 +963,31 @@ class Repos extends Resource
     }
 
     /**
-     * @param  string  $owner The account owner of the repository. The name is not case-sensitive.
-     * @param  string  $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
-     * @param  string  $ref The commit reference. Can be a commit SHA, branch name (`heads/BRANCH_NAME`), or tag name (`tags/TAG_NAME`). For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
-     * @param  int  $page Page number of the results to fetch.
+     * @param string $owner The account owner of the repository. The name is not case-sensitive.
+     * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param string $ref The commit reference. Can be a commit SHA, branch name (`heads/BRANCH_NAME`), or tag name (`tags/TAG_NAME`). For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
+     * @param int|null $page Page number of the results to fetch.
+     * @return Response
+     * @throws FatalRequestException
+     * @throws RequestException
      */
     public function reposGetCommit(string $owner, string $repo, string $ref, ?int $page): Response
     {
         return $this->connector->send(new ReposGetCommit($owner, $repo, $ref, $page));
+    }
+
+    /**
+     * @param string $owner The account owner of the repository. The name is not case-sensitive.
+     * @param string $repo The name of the repository without the `.git` extension. The name is not case-sensitive.
+     * @param string $ref The commit reference. Can be a commit SHA, branch name (`heads/BRANCH_NAME`), or tag name (`tags/TAG_NAME`). For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
+     * @param int|null $page Page number of the results to fetch.
+     * @return Response
+     * @throws FatalRequestException
+     * @throws RequestException
+     */
+    public function reposGetCommitSha(string $owner, string $repo, string $ref, ?int $page): Response
+    {
+        return $this->connector->send(new ReposGetCommitSha($owner, $repo, $ref, $page));
     }
 
     /**
